@@ -26,7 +26,8 @@ void setup()
   digitalWrite(RELAY_PIN, pushButton.state);
   digitalWrite(LED_PIN, pushButton.state);
 
-  ButtonPressedFn buttonFn = [&] {
+  ButtonPressedFn buttonFn = [&]
+  {
     httpServer.toggleRelay();
   };
 
@@ -57,11 +58,13 @@ void loop()
 {
   httpServer.loop();
 
-  if (btnBounceTimer.update()) {
+  if (btnBounceTimer.update())
+  {
     pushButton.wasPushed();
   }
 
-  if (wifiTimer.update()) {
+  if (wifiTimer.update())
+  {
     wifiHandler.reconnect();
   }
 }

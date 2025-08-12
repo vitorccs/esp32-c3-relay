@@ -36,10 +36,11 @@ void WifiHandler::debug(WiFiClass WiFi,
 
 void WifiHandler::reconnect()
 {
-    if (WiFi.status() == WL_CONNECTED) {
+    if (WiFi.status() == WL_CONNECTED)
+    {
         return;
     }
-    
+
     WiFi.disconnect();
     WiFi.reconnect();
 }
