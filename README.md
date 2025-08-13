@@ -3,6 +3,10 @@ A simple ESP32-C3 project to control a LED stripe via a web interface and a phys
 
 <img alt="" src="https://github.com/user-attachments/assets/af912b0d-07d2-4dd3-ae6c-eae1c19b81e6" />
 
+### Notes:
+1) Gate resistor (220Ω) is optional but recommended to prevent spikes.
+2) Pull-down resistor (10kΩ) between Gate and GND is optional but prevents accidental turn-on during boot.
+
 ## Components
 * 01 ESP32-C3 Mini board
 * 01 Push Button
