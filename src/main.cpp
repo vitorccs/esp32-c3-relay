@@ -3,6 +3,7 @@
 #include <HttpServer.h>
 #include <WifiHandler.h>
 #include <PushButton.h>
+#include "types.h"
 
 #define RELAY_PIN 0
 #define BUTTON_PIN 1
@@ -16,6 +17,7 @@ PushButton pushButton;
 noDelay wifiTimer;
 noDelay btnBounceTimer;
 
+
 void setup()
 {
   Serial.begin(115200);
@@ -25,11 +27,6 @@ void setup()
 
   digitalWrite(RELAY_PIN, pushButton.state);
   digitalWrite(LED_PIN, pushButton.state);
-
-  ButtonPressedFn buttonFn = [&]
-  {
-    httpServer.toggleRelay();
-  };
 
   RelayTogglerFn relayToggler = [&]
   {
@@ -44,7 +41,7 @@ void setup()
     return pushButton.state;
   };
 
-  pushButton.init(buttonFn, BUTTON_PIN);
+  pushButton.init(relayToggler, BUTTON_PIN);
 
   wifiHandler.connect(WIFI_SSID, WIFI_PWD);
 
@@ -56,8 +53,6 @@ void setup()
 
 void loop()
 {
-  httpServer.loop();
-
   if (btnBounceTimer.update())
   {
     pushButton.wasPushed();
