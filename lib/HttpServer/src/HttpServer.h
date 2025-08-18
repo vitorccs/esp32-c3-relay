@@ -1,9 +1,10 @@
 #ifndef HTTP_SERVER_H
 #define HTTP_SERVER_H
 #include <Arduino.h>
-#include <WebServer.h>
+#include <ESPAsyncWebServer.h>
+#include "types.h"
 
-typedef std::function<void()> RelayTogglerFn;
+
 typedef std::function<bool()> RelayStateFn;
 
 class HttpServer
@@ -11,16 +12,14 @@ class HttpServer
 public:
     HttpServer();
     void init(RelayTogglerFn toggleFn, RelayStateFn stateFn);
-    void toggleRelay();
-    void loop();
 
 private:
-    WebServer webServer;
+    AsyncWebServer webServer;
     RelayTogglerFn relayTogglerFn;
     RelayStateFn relayStateFn;
-    void handleRoot();
-
-    void handleStatus();
+    void handleRoot(AsyncWebServerRequest* request);
+    void handleStatus(AsyncWebServerRequest* request);
+    void toggleRelay(AsyncWebServerRequest* request);
 };
 
 #endif

@@ -1,17 +1,18 @@
-#include <Arduino.h>
-#include <WebServer.h>
 #include <HttpServer.h>
 
 HttpServer::HttpServer() : webServer(80)
 {
-  webServer.on("/", [&]()
-               { handleRoot(); });
+  webServer.on("/", HTTP_GET, [this](AsyncWebServerRequest* request) { 
+    handleRoot(request); 
+  });
 
-  webServer.on("/toggle", HTTP_POST, [&]()
-               { toggleRelay(); });
+  webServer.on("/toggle", HTTP_POST, [this](AsyncWebServerRequest* request) { 
+    toggleRelay(request); 
+  });
 
-  webServer.on("/status", HTTP_GET, [&]()
-               { handleStatus(); });
+  webServer.on("/status", HTTP_GET, [this](AsyncWebServerRequest* request) { 
+    handleStatus(request); 
+  });
 }
 
 void HttpServer::init(RelayTogglerFn toggleFn,
@@ -23,12 +24,7 @@ void HttpServer::init(RelayTogglerFn toggleFn,
   webServer.begin();
 }
 
-void HttpServer::loop()
-{
-  webServer.handleClient();
-}
-
-void HttpServer::handleRoot()
+void HttpServer::handleRoot(AsyncWebServerRequest* request)
 {
   String indexHtml = R"rawliteral(
     <!DOCTYPE html>
@@ -151,19 +147,17 @@ void HttpServer::handleRoot()
   )rawliteral";
 
   indexHtml.replace("%STATE%", relayStateFn() ? "ON" : "OFF");
-  webServer.send(200, "text/html", indexHtml);
+  request->send(200, "text/html", indexHtml);
 }
 
-void HttpServer::toggleRelay()
+void HttpServer::toggleRelay(AsyncWebServerRequest* request)
 {
   relayTogglerFn();
-  webServer.sendHeader("Location", "/", true);
-  webServer.send(302, "text/plain", "");
+  request->redirect("/");
 }
 
-void HttpServer::handleStatus()
+void HttpServer::handleStatus(AsyncWebServerRequest* request)
 {
-  const String response = relayStateFn() ? "ON" : "OFF";
-
-  webServer.send(200, "application/json", "{\"state\":\"" + response + "\"}");
+  const String state = relayStateFn() ? "ON" : "OFF";
+  request->send(200, "application/json", "{\"state\":\"" + state + "\"}");
 }

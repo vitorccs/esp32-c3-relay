@@ -1,11 +1,10 @@
-#include <Arduino.h>
 #include <PushButton.h>
 
 bool relayState = false;
 
-void PushButton::init(ButtonPressedFn buttonFn, uint8_t btnPin)
+void PushButton::init(RelayTogglerFn toggleFn, uint8_t btnPin)
 {
-  buttonPressedFn = buttonFn;
+  relayTogglerFn = toggleFn;
   buttonPin = btnPin;
 
   pinMode(buttonPin, INPUT_PULLUP);
@@ -24,7 +23,7 @@ void PushButton::wasPushed()
 
   if (btnPressed && stateChanged)
   {
-    buttonPressedFn();
+    relayTogglerFn();
   }
 
   lastButtonState = reading;
