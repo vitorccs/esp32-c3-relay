@@ -15,6 +15,16 @@ void PushButton::toggle()
   state = !state;
 }
 
+void PushButton::turnOn()
+{
+  state = true;
+}
+
+void PushButton::turnOff()
+{
+  state = false;
+}
+
 void PushButton::wasPushed()
 {
   int reading = digitalRead(buttonPin);

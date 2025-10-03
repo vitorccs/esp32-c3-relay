@@ -4,22 +4,26 @@
 #include <ESPAsyncWebServer.h>
 #include "types.h"
 
-
-typedef std::function<bool()> RelayStateFn;
-
 class HttpServer
 {
 public:
     HttpServer();
-    void init(RelayTogglerFn toggleFn, RelayStateFn stateFn);
+    void init(RelayTogglerFn toggleFn,
+              RelayOnFn onFn,
+              RelayOffFn offFn,
+              RelayStateFn stateFn);
 
 private:
     AsyncWebServer webServer;
     RelayTogglerFn relayTogglerFn;
+    RelayOnFn relayOnFn;
+    RelayOffFn relayOffFn;
     RelayStateFn relayStateFn;
-    void handleRoot(AsyncWebServerRequest* request);
-    void handleStatus(AsyncWebServerRequest* request);
-    void toggleRelay(AsyncWebServerRequest* request);
+    void handleRoot(AsyncWebServerRequest *request);
+    void handleStatus(AsyncWebServerRequest *request);
+    void toggleRelay(AsyncWebServerRequest *request);
+    void turnOnRelay(AsyncWebServerRequest *request);
+    void turnOffRelay(AsyncWebServerRequest *request);
 };
 
 #endif

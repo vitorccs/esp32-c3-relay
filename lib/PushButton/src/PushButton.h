@@ -9,6 +9,8 @@ public:
     bool state = false;
     void init(RelayTogglerFn toggleFn, uint8_t pin);
     void toggle();
+    void turnOn();
+    void turnOff();
     void wasPushed();
 
 private:
