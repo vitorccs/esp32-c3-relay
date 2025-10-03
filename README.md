@@ -1,7 +1,18 @@
 # ESP32-C3 LED Relay
 A simple ESP32-C3 project to control a LED stripe via a web interface and a physical push button. The web page reflects the current LED state in real time.
 
-<img alt="" src="https://github.com/user-attachments/assets/af912b0d-07d2-4dd3-ae6c-eae1c19b81e6" />
+<img width="847" height="624" alt="Image" src="https://github.com/user-attachments/assets/350cad7f-53e1-4bb9-a48a-dd487f9a22c7" />
+
+<img width="847" height="624" alt="Image" src="https://github.com/user-attachments/assets/70e70242-21c3-4916-af86-39528947e231" />
+
+# Schematics
+
+**5v LED Strip**
+<img width="1849" height="905" alt="esp32-c3-led-relay-v1-5v_bb" src="https://github.com/user-attachments/assets/0b5d2560-dc04-4f9d-9a21-eb9f29d4fa06" />
+
+**12v LED Strip**
+<img width="2271" height="905" alt="esp32-c3-led-relay-v1-12v_bb" src="https://github.com/user-attachments/assets/235a4b23-35d4-4837-bf80-b255f4bc1ec3" />
+
 
 ### Notes:
 1) Gate resistor (220Ω) is optional but recommended to prevent spikes.
@@ -17,4 +28,4 @@ A simple ESP32-C3 project to control a LED stripe via a web interface and a phys
 * 01 12V Power Supply
 
 ## Fritzing file
-* [esp32-c3-led-relay.zip](https://github.com/user-attachments/files/21554987/esp32-c3-led-relay.zip)
+* [esp32-c3-led-relay-v1-.zip](https://github.com/user-attachments/files/22629500/esp32-c3-led-relay-v1-.zip)
